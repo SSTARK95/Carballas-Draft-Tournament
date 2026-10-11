@@ -2,6 +2,8 @@ import { sveltekit } from '@sveltejs/kit/vite';
 import { defineConfig } from 'vitest/config';
 import { VitePWA } from 'vite-plugin-pwa';
 
+const isGithubPages = !!process.env.GITHUB_ACTIONS;
+
 export default defineConfig({
   plugins: [
     sveltekit(),
@@ -15,7 +17,8 @@ export default defineConfig({
         theme_color: '#0f172a',
         background_color: '#020617',
         display: 'standalone',
-        start_url: '/',
+        start_url: isGithubPages ? '/draft-magic/' : '/',
+        scope: isGithubPages ? '/draft-magic/' : '/',
         icons: [
           {
             src: 'pwa-192x192.png',
