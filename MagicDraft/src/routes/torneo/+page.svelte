@@ -1,4 +1,5 @@
 <script lang="ts">
+  import { base } from '$app/paths';
   import { onMount } from 'svelte';
   import { saveTournamentRecord } from '$lib/db';
   import {
@@ -40,7 +41,7 @@
   function loadTournament() {
     const raw = localStorage.getItem('magic-draft-current');
     if (!raw) {
-      window.location.href = '/';
+      window.location.href = `${base}/`;
       return;
     }
     tournament = JSON.parse(raw) as Tournament;
@@ -238,7 +239,7 @@
             </p>
           </div>
           <div class="flex flex-wrap gap-2">
-            <button class="rounded-lg bg-slate-700 px-3 py-2" on:click={() => (window.location.href = '/')}>Inicio</button>
+            <button class="rounded-lg bg-slate-700 px-3 py-2" on:click={() => (window.location.href = `${base}/`)}>Inicio</button>
             <button class="rounded-lg bg-cyan-500 px-3 py-2 font-semibold text-slate-950" on:click={renameTournament}>Renombrar</button>
           </div>
         </div>
@@ -519,7 +520,7 @@
           <div class="flex flex-wrap gap-3">
             <button class="rounded-xl bg-cyan-500 px-4 py-3 font-semibold text-slate-950" on:click={exportJson}>Exportar torneo</button>
             <button class="rounded-xl bg-emerald-500 px-4 py-3 font-semibold text-slate-950" on:click={exportCsv}>Exportar CSV</button>
-            <button class="rounded-xl bg-red-500 px-4 py-3 font-semibold text-white" on:click={() => { if (confirm('¿Eliminar torneo?')) { localStorage.removeItem('magic-draft-current'); window.location.href = '/'; } }}>Eliminar torneo</button>
+            <button class="rounded-xl bg-red-500 px-4 py-3 font-semibold text-white" on:click={() => { if (confirm('¿Eliminar torneo?')) { localStorage.removeItem('magic-draft-current'); window.location.href = `${base}/`; } }}>Eliminar torneo</button>
           </div>
 
           <div class="rounded-xl border border-slate-700 bg-slate-950 p-3">

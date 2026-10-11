@@ -1,4 +1,5 @@
 <script lang="ts">
+  import { base } from '$app/paths';
   import { onMount } from 'svelte';
   import { db, listTournamentRecords, saveTournamentRecord, deleteTournamentRecord } from '$lib/db';
   import { createTournament, deserializeTournament, serializeTournament } from '$lib/tournament';
@@ -68,7 +69,7 @@
       saveTournamentRecord(tournament);
       const parsed = JSON.parse(tournamentText);
       localStorage.setItem('magic-draft-current', JSON.stringify(parsed));
-      window.location.href = '/torneo';
+      window.location.href = `${base}/torneo`;
     } catch (caughtError) {
       error = caughtError instanceof Error ? caughtError.message : 'Error al crear el torneo.';
     }
@@ -79,7 +80,7 @@
       const parsed = deserializeTournament(importText);
       saveTournamentRecord(parsed);
       localStorage.setItem('magic-draft-current', JSON.stringify(parsed));
-      window.location.href = '/torneo';
+      window.location.href = `${base}/torneo`;
     } catch (caughtError) {
       error = caughtError instanceof Error ? caughtError.message : 'JSON inválido.';
     }
@@ -95,7 +96,7 @@
 
   function openTournament(entry: TournamentEntry) {
     localStorage.setItem('magic-draft-current', entry.payload);
-    window.location.href = '/torneo';
+    window.location.href = `${base}/torneo`;
   }
 </script>
 
