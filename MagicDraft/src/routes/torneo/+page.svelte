@@ -176,6 +176,16 @@
     return `${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
   }
 
+  function podiumFor(round: 'final' | 'tercer-puesto') {
+    const match = playoffMatches.find((entry) => entry.round === round);
+    if (!match || !match.winnerId) return null;
+    const loserId = match.player1Id === match.winnerId ? match.player2Id : match.player1Id;
+    return { winnerId: match.winnerId, loserId };
+  }
+
+  $: finalResult = (playoffMatches, podiumFor('final'));
+  $: thirdResult = (playoffMatches, podiumFor('tercer-puesto'));
+
   function playerNameById(playerId: string | null | undefined) {
     return tournament?.players.find((player) => player.id === playerId)?.name ?? 'Jugador';
   }
@@ -451,6 +461,34 @@
               </tbody>
             </table>
           </section>
+
+          {#if finalResult || thirdResult}
+            <section class="rounded-2xl border border-amber-500/40 bg-slate-900 p-4">
+              <h3 class="mb-4 text-center text-lg font-semibold text-amber-300">Podio de playoffs</h3>
+              <div class="space-y-3">
+                {#if finalResult}
+                  <div class="flex items-center gap-4 rounded-xl border border-yellow-400/60 bg-yellow-400/10 p-4">
+                    <div class="relative text-6xl leading-none">🏆<span class="absolute inset-0 flex items-center justify-center pb-2 text-xl font-extrabold text-yellow-950">1</span></div>
+                    <div><p class="text-xs uppercase tracking-wide text-yellow-300">Campeón</p><p class="text-xl font-bold text-yellow-200">{playerNameById(finalResult.winnerId)}</p></div>
+                  </div>
+                  <div class="flex items-center gap-4 rounded-xl border border-slate-400/50 bg-slate-400/10 p-3">
+                    <div class="relative text-4xl leading-none grayscale brightness-150">🏆<span class="absolute inset-0 flex items-center justify-center pb-1 text-sm font-extrabold text-slate-900">2</span></div>
+                    <div><p class="text-xs uppercase tracking-wide text-slate-300">Subcampeón</p><p class="text-lg font-semibold text-slate-100">{playerNameById(finalResult.loserId)}</p></div>
+                  </div>
+                {/if}
+                {#if thirdResult}
+                  <div class="flex items-center gap-4 rounded-xl border border-orange-600/50 bg-orange-600/10 p-3">
+                    <div class="relative text-4xl leading-none">🥉<span class="absolute inset-0 flex items-center justify-center pt-3 text-xs font-extrabold text-orange-950">3</span></div>
+                    <div><p class="text-xs uppercase tracking-wide text-orange-300">Tercer puesto</p><p class="text-lg font-semibold text-orange-200">{playerNameById(thirdResult.winnerId)}</p></div>
+                  </div>
+                  <div class="flex items-center gap-4 rounded-xl border border-amber-900/60 bg-amber-900/20 p-3">
+                    <div class="flex h-10 w-10 items-center justify-center rounded-full border-2 border-amber-950 bg-amber-800 text-lg font-extrabold text-amber-100">4</div>
+                    <div><p class="text-xs uppercase tracking-wide text-amber-600">Cuarto puesto</p><p class="text-lg font-semibold text-amber-200">{playerNameById(thirdResult.loserId)}</p></div>
+                  </div>
+                {/if}
+              </div>
+            </section>
+          {/if}
         </section>
       {/if}
 
