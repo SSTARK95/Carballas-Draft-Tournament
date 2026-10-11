@@ -12,7 +12,7 @@ const config = {
       fallback: '404.html'
     }),
     paths: {
-      base: isGithubPages ? '/draft-magic' : ''
+      base: isGithubPages ? '/Carballas-Draft-Tournament' : ''
     },
     prerender: {
       entries: ['*']

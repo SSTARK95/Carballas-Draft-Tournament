@@ -17,8 +17,8 @@ export default defineConfig({
         theme_color: '#0f172a',
         background_color: '#020617',
         display: 'standalone',
-        start_url: isGithubPages ? '/draft-magic/' : '/',
-        scope: isGithubPages ? '/draft-magic/' : '/',
+        start_url: isGithubPages ? '/Carballas-Draft-Tournament/' : '/',
+        scope: isGithubPages ? '/Carballas-Draft-Tournament/' : '/',
         icons: [
           {
             src: 'pwa-192x192.png',
