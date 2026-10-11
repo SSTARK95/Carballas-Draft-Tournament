@@ -1,0 +1,13 @@
+# Project dependencies and generated output
+MagicDraft/node_modules/
+MagicDraft/.svelte-kit/
+MagicDraft/build/
+MagicDraft/.vite/
+MagicDraft/*.log
+
+# Editor / OS noise
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+*.log
